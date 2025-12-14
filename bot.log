@@ -1,0 +1,5 @@
+2025-12-14 18:46:06,652 [INFO] discord.client: logging in using static token
+2025-12-14 18:46:09,972 [CRITICAL] bot.database: ❌ KRYTYCZNY BŁĄD BAZY DANYCH: [Errno 11001] getaddrinfo failed
+2025-12-14 18:46:10,187 [ERROR] asyncio: Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x0000019AE0035E50>, 2073.4534031)])']
+connector: <aiohttp.connector.TCPConnector object at 0x0000019AE1795160>

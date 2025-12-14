@@ -1,0 +1,39 @@
+services:
+  # Serwer Bazy Danych
+  db:
+    image: postgres:16-alpine
+    container_name: clash_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql # Automatyczny import schematu
+    ports:
+      - "5432:5432"
+    networks:
+      - clash_network
+
+  # Graficzny interfejs do bazy danych (dostępny przez WWW)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: clash_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - clash_network
+
+volumes:
+  postgres_data:
+
+networks:
+  clash_network:
+    driver: bridge
